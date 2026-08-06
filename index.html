@@ -55,9 +55,8 @@
   .price-row{display:grid;grid-template-columns:1fr 150px;gap:10px;align-items:center}
   .price-row span{font-size:.92rem;font-weight:600;color:var(--ink)}
   @media(max-width:520px){.price-row{grid-template-columns:1fr}.price-row span{font-size:.86rem;color:var(--muted)}}
-  .custom-wrap{margin-top:16px;padding-top:16px;border-top:1px dashed var(--line)}
-  .price-row.custom{grid-template-columns:1fr 150px}
-  @media(max-width:520px){.price-row.custom{grid-template-columns:1fr}}
+  .price-row.custom{grid-template-columns:1fr 140px 34px}
+  @media(max-width:520px){.price-row.custom{grid-template-columns:1fr 96px 30px;gap:8px}}
   .addbtn{margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:var(--blue-soft);color:var(--blue);border:1.5px dashed color-mix(in srgb,var(--blue) 45%,transparent);font-family:inherit;font-weight:700;font-size:.9rem;padding:10px 16px;border-radius:11px;cursor:pointer;transition:.2s}
   .addbtn:hover{background:color-mix(in srgb,var(--blue) 14%,transparent)}
   .rm{border:none;background:none;color:var(--faint);cursor:pointer;font-size:1.2rem;line-height:1;padding:0 4px}
@@ -101,25 +100,18 @@
     </fieldset>
 
     <fieldset>
-      <legend><span class="dot"></span>요금 (기본 시작가)</legend>
-      <p class="hint" style="margin-bottom:12px">서비스별 기본 시작 금액을 적어주세요. 예: <b>30,000원~</b> / 현장 방문 견적이면 <b>현장견적</b> 이라고 적어주시면 됩니다.</p>
-      <div class="grid">
-        <div class="price-row"><span>변기 막힘 · 역류</span><input type="text" name="요금-변기막힘" placeholder="예: 30,000원~"></div>
-        <div class="price-row"><span>하수구 막힘 · 냄새</span><input type="text" name="요금-하수구막힘" placeholder="예: 30,000원~"></div>
-        <div class="price-row"><span>싱크대 막힘 · 역류</span><input type="text" name="요금-싱크대막힘" placeholder="예: 40,000원~"></div>
-        <div class="price-row"><span>음식물처리기 막힘</span><input type="text" name="요금-음식물처리기" placeholder="예: 50,000원~"></div>
-        <div class="price-row"><span>세면대 · 욕실 배수구</span><input type="text" name="요금-세면대욕실" placeholder="예: 30,000원~"></div>
-        <div class="price-row"><span>배관 고압세척</span><input type="text" name="요금-고압세척" placeholder="예: 100,000원~"></div>
-        <div class="price-row"><span>누수 탐지 · 배관공사</span><input type="text" name="요금-누수배관공사" placeholder="예: 현장견적"></div>
+      <legend><span class="dot"></span>요금표</legend>
+      <p class="hint" style="margin-bottom:12px">넣고 싶은 <b>서비스 종류와 금액을 자유롭게</b> 추가·수정·삭제하세요. 기본 예시가 채워져 있으니 필요에 맞게 바꾸시면 됩니다. 방문견적이면 금액에 <b>현장견적</b>이라고 적으세요.</p>
+      <div class="grid" id="priceList">
+        <div class="price-row custom"><input type="text" name="요금1 종류" value="변기 막힘 · 역류"><input type="text" name="요금1 금액" placeholder="금액 예:30,000원~"><button type="button" class="rm" aria-label="삭제">×</button></div>
+        <div class="price-row custom"><input type="text" name="요금2 종류" value="하수구 막힘 · 냄새"><input type="text" name="요금2 금액" placeholder="금액 예:30,000원~"><button type="button" class="rm" aria-label="삭제">×</button></div>
+        <div class="price-row custom"><input type="text" name="요금3 종류" value="싱크대 막힘 · 역류"><input type="text" name="요금3 금액" placeholder="금액 예:40,000원~"><button type="button" class="rm" aria-label="삭제">×</button></div>
+        <div class="price-row custom"><input type="text" name="요금4 종류" value="음식물처리기 막힘"><input type="text" name="요금4 금액" placeholder="금액 예:50,000원~"><button type="button" class="rm" aria-label="삭제">×</button></div>
+        <div class="price-row custom"><input type="text" name="요금5 종류" value="세면대 · 욕실 배수구"><input type="text" name="요금5 금액" placeholder="금액 예:30,000원~"><button type="button" class="rm" aria-label="삭제">×</button></div>
+        <div class="price-row custom"><input type="text" name="요금6 종류" value="배관 고압세척"><input type="text" name="요금6 금액" placeholder="금액 예:100,000원~"><button type="button" class="rm" aria-label="삭제">×</button></div>
+        <div class="price-row custom"><input type="text" name="요금7 종류" value="누수 탐지 · 배관공사"><input type="text" name="요금7 금액" placeholder="금액 예:현장견적"><button type="button" class="rm" aria-label="삭제">×</button></div>
       </div>
-      <div class="custom-wrap">
-        <p class="hint" style="margin-bottom:10px">위에 없는 서비스는 <b>직접 종류와 금액</b>을 적어주세요.</p>
-        <div class="grid" id="customPrices">
-          <div class="price-row custom"><input type="text" name="기타요금1 종류" placeholder="서비스 종류 (예: 정화조 청소)"><input type="text" name="기타요금1 금액" placeholder="예: 80,000원~"></div>
-          <div class="price-row custom"><input type="text" name="기타요금2 종류" placeholder="서비스 종류"><input type="text" name="기타요금2 금액" placeholder="금액"></div>
-        </div>
-        <button type="button" class="addbtn" id="addPrice">＋ 항목 추가</button>
-      </div>
+      <button type="button" class="addbtn" id="addPrice">＋ 항목 추가</button>
     </fieldset>
 
     <fieldset>
@@ -152,17 +144,21 @@
 </div>
 <script>
 (function(){
-  var wrap=document.getElementById('customPrices');
+  var list=document.getElementById('priceList');
   var btn=document.getElementById('addPrice');
-  var i=2;
+  var i=7;
   btn.addEventListener('click',function(){
     i++;
     var row=document.createElement('div');
     row.className='price-row custom';
-    row.innerHTML='<input type="text" name="기타요금'+i+' 종류" placeholder="서비스 종류">'
-      +'<input type="text" name="기타요금'+i+' 금액" placeholder="금액">';
-    wrap.appendChild(row);
+    row.innerHTML='<input type="text" name="요금'+i+' 종류" placeholder="서비스 종류">'
+      +'<input type="text" name="요금'+i+' 금액" placeholder="금액">'
+      +'<button type="button" class="rm" aria-label="삭제">×</button>';
+    list.appendChild(row);
     row.querySelector('input').focus();
+  });
+  list.addEventListener('click',function(e){
+    if(e.target.classList.contains('rm')){ e.target.closest('.price-row').remove(); }
   });
 })();
 </script>
