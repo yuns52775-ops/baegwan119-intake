@@ -55,6 +55,13 @@
   .price-row{display:grid;grid-template-columns:1fr 150px;gap:10px;align-items:center}
   .price-row span{font-size:.92rem;font-weight:600;color:var(--ink)}
   @media(max-width:520px){.price-row{grid-template-columns:1fr}.price-row span{font-size:.86rem;color:var(--muted)}}
+  .custom-wrap{margin-top:16px;padding-top:16px;border-top:1px dashed var(--line)}
+  .price-row.custom{grid-template-columns:1fr 150px}
+  @media(max-width:520px){.price-row.custom{grid-template-columns:1fr}}
+  .addbtn{margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:var(--blue-soft);color:var(--blue);border:1.5px dashed color-mix(in srgb,var(--blue) 45%,transparent);font-family:inherit;font-weight:700;font-size:.9rem;padding:10px 16px;border-radius:11px;cursor:pointer;transition:.2s}
+  .addbtn:hover{background:color-mix(in srgb,var(--blue) 14%,transparent)}
+  .rm{border:none;background:none;color:var(--faint);cursor:pointer;font-size:1.2rem;line-height:1;padding:0 4px}
+  .rm:hover{color:#d64545}
 
   .submit{position:sticky;bottom:14px;margin-top:6px}
   button.go{width:100%;border:none;cursor:pointer;font-family:inherit;font-size:1.1rem;font-weight:800;color:#fff;background:linear-gradient(120deg,var(--blue),#3f8cff);padding:17px;border-radius:14px;box-shadow:0 14px 30px -12px rgba(20,97,209,.7);transition:transform .2s}
@@ -105,6 +112,14 @@
         <div class="price-row"><span>배관 고압세척</span><input type="text" name="요금-고압세척" placeholder="예: 100,000원~"></div>
         <div class="price-row"><span>누수 탐지 · 배관공사</span><input type="text" name="요금-누수배관공사" placeholder="예: 현장견적"></div>
       </div>
+      <div class="custom-wrap">
+        <p class="hint" style="margin-bottom:10px">위에 없는 서비스는 <b>직접 종류와 금액</b>을 적어주세요.</p>
+        <div class="grid" id="customPrices">
+          <div class="price-row custom"><input type="text" name="기타요금1 종류" placeholder="서비스 종류 (예: 정화조 청소)"><input type="text" name="기타요금1 금액" placeholder="예: 80,000원~"></div>
+          <div class="price-row custom"><input type="text" name="기타요금2 종류" placeholder="서비스 종류"><input type="text" name="기타요금2 금액" placeholder="금액"></div>
+        </div>
+        <button type="button" class="addbtn" id="addPrice">＋ 항목 추가</button>
+      </div>
     </fieldset>
 
     <fieldset>
@@ -135,5 +150,21 @@
     <p class="foot">제출해 주시면 담당자가 확인 후 홈페이지에 반영합니다.<br>문의: 배관119케어 홈페이지 담당</p>
   </form>
 </div>
+<script>
+(function(){
+  var wrap=document.getElementById('customPrices');
+  var btn=document.getElementById('addPrice');
+  var i=2;
+  btn.addEventListener('click',function(){
+    i++;
+    var row=document.createElement('div');
+    row.className='price-row custom';
+    row.innerHTML='<input type="text" name="기타요금'+i+' 종류" placeholder="서비스 종류">'
+      +'<input type="text" name="기타요금'+i+' 금액" placeholder="금액">';
+    wrap.appendChild(row);
+    row.querySelector('input').focus();
+  });
+})();
+</script>
 </body>
 </html>
