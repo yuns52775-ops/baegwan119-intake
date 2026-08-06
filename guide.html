@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>구글시트 연동 설정 안내 · 배관119케어</title>
+<meta name="robots" content="noindex">
+<style>
+  :root{
+    --bg:#eef2f8;--surface:#ffffff;--surface-2:#f7f9fc;--ink:#0e1726;--muted:#54637b;--faint:#8592a6;
+    --navy:#0b2144;--blue:#1461d1;--blue-soft:#e7f0fd;--gold:#c47f08;--gold-soft:#fbf0d6;
+    --warn:#cf3c3c;--warn-soft:#fbe7e7;--ok:#1aa251;--line:#e2e8f1;--radius:16px;
+    --code-bg:#0d1b30;--code-ink:#e7eefb;
+    --shadow:0 12px 34px -16px rgba(11,33,68,.30);
+    --sysface:"Pretendard","Pretendard Variable",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","맑은 고딕",system-ui,sans-serif;
+    --mono:"SF Mono",ui-monospace,Consolas,"D2Coding",Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{--bg:#0a1626;--surface:#102039;--surface-2:#0d1c31;--ink:#e9eff8;--muted:#a4b5cf;--faint:#6f83a3;--navy:#dbe7fb;--blue:#4c92ff;--blue-soft:#13294a;--gold:#ffc233;--gold-soft:#2b2410;--warn:#ff8080;--warn-soft:#3a1c1c;--line:#1f3355;--code-bg:#060f1d;--shadow:0 16px 44px -18px rgba(0,0,0,.65)}
+  }
+  :root[data-theme="light"]{--bg:#eef2f8;--surface:#ffffff;--surface-2:#f7f9fc;--ink:#0e1726;--muted:#54637b;--faint:#8592a6;--navy:#0b2144;--blue:#1461d1;--blue-soft:#e7f0fd;--gold:#c47f08;--gold-soft:#fbf0d6;--warn:#cf3c3c;--warn-soft:#fbe7e7;--line:#e2e8f1;--code-bg:#0d1b30;--shadow:0 12px 34px -16px rgba(11,33,68,.30)}
+  :root[data-theme="dark"]{--bg:#0a1626;--surface:#102039;--surface-2:#0d1c31;--ink:#e9eff8;--muted:#a4b5cf;--faint:#6f83a3;--navy:#dbe7fb;--blue:#4c92ff;--blue-soft:#13294a;--gold:#ffc233;--gold-soft:#2b2410;--warn:#ff8080;--warn-soft:#3a1c1c;--line:#1f3355;--code-bg:#060f1d;--shadow:0 16px 44px -18px rgba(0,0,0,.65)}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--sysface);background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;letter-spacing:-.01em;padding:clamp(18px,4vw,44px) 16px 70px}
+  .wrap{max-width:680px;margin:0 auto}
+
+  .brand{display:flex;align-items:center;gap:11px;margin-bottom:16px}
+  .brand .mark{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,var(--navy),var(--blue));display:grid;place-items:center;flex-shrink:0}
+  .brand .mark svg{width:22px;height:22px;color:#fff}
+  .brand b{font-size:1.05rem;font-weight:800;line-height:1.1;display:block}
+  .brand small{font-size:.72rem;color:var(--faint);font-weight:600;letter-spacing:.12em}
+  .eyebrow{display:inline-block;font-size:.74rem;font-weight:800;letter-spacing:.1em;color:var(--blue);background:var(--blue-soft);padding:6px 12px;border-radius:100px;margin-bottom:12px}
+  h1{font-size:clamp(1.6rem,4.6vw,2.15rem);font-weight:800;letter-spacing:-.035em;line-height:1.2;text-wrap:balance;margin-bottom:10px}
+  .lead{color:var(--muted);font-size:1rem}
+  .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+  .chip{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;font-weight:700;color:var(--navy);background:var(--surface);border:1px solid var(--line);border-radius:100px;padding:7px 14px;box-shadow:var(--shadow)}
+  .chip svg{width:15px;height:15px;color:var(--blue)}
+
+  .callout{margin:22px 0;border-radius:14px;padding:16px 18px;font-size:.94rem;line-height:1.6;display:flex;gap:12px;align-items:flex-start}
+  .callout svg{width:22px;height:22px;flex-shrink:0;margin-top:1px}
+  .callout.warn{background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 30%,transparent)}
+  .callout.warn svg{color:var(--warn)}
+  .callout.warn b{color:var(--warn)}
+  .callout.tip{background:var(--gold-soft);border:1px solid color-mix(in srgb,var(--gold) 30%,transparent)}
+  .callout.tip svg{color:var(--gold)}
+  .callout.tip b{color:var(--gold)}
+
+  .steps{display:grid;gap:14px;margin-top:8px;counter-reset:s}
+  .step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 20px 20px 20px;position:relative}
+  .step-h{display:flex;align-items:center;gap:13px;margin-bottom:6px}
+  .num{counter-increment:s;width:34px;height:34px;flex-shrink:0;border-radius:50%;background:linear-gradient(135deg,var(--blue),#3f8cff);color:#fff;font-weight:800;font-size:1rem;display:grid;place-items:center;box-shadow:0 6px 14px -6px rgba(20,97,209,.7)}
+  .num::before{content:counter(s)}
+  .step-h h3{font-size:1.12rem;font-weight:800;color:var(--ink);letter-spacing:-.02em}
+  .step p{color:var(--muted);font-size:.96rem;padding-left:47px}
+  .step p b{color:var(--ink)}
+  .kbd{font-family:var(--mono);font-size:.86em;background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:1px 7px;color:var(--ink);white-space:nowrap;display:inline-block}
+  .imp{color:var(--warn);font-weight:800}
+
+  .codewrap{margin:14px 0 2px;margin-left:47px;position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+  @media(max-width:520px){.step p,.codewrap{padding-left:0;margin-left:0}}
+  .codebar{display:flex;align-items:center;justify-content:space-between;background:#0a1526;padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08)}
+  .codebar span{font-size:.76rem;color:#8ba0c2;font-weight:700;font-family:var(--mono)}
+  .copybtn{background:var(--blue);color:#fff;border:none;font-family:inherit;font-size:.8rem;font-weight:700;padding:6px 14px;border-radius:8px;cursor:pointer;transition:.2s}
+  .copybtn:hover{filter:brightness(1.08)}
+  .copybtn.done{background:var(--ok)}
+  pre{background:var(--code-bg);color:var(--code-ink);padding:15px 14px;overflow-x:auto;font-family:var(--mono);font-size:.8rem;line-height:1.6;margin:0}
+  pre .cmt{color:#6f8bb5}
+  pre .str{color:#ffd873}
+  pre .kw{color:#5fb2ff}
+
+  .deploy-box{margin-left:47px;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:10px}
+  @media(max-width:520px){.deploy-box{margin-left:0}}
+  .deploy-box ul{list-style:none;display:grid;gap:9px}
+  .deploy-box li{display:flex;gap:9px;font-size:.92rem;color:var(--muted);align-items:flex-start}
+  .deploy-box li::before{content:"›";color:var(--blue);font-weight:800;flex-shrink:0}
+  .deploy-box li b{color:var(--ink)}
+  .deploy-box .hl{color:var(--warn);font-weight:800}
+
+  .final{margin-top:22px;background:linear-gradient(135deg,var(--navy),#12315c);color:#fff;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+  :root[data-theme="dark"] .final{background:linear-gradient(135deg,#12315c,#0c2444);border:1px solid var(--line)}
+  @media (prefers-color-scheme: dark){.final{background:linear-gradient(135deg,#12315c,#0c2444);border:1px solid var(--line)}}
+  .final h3{font-size:1.15rem;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:9px}
+  .final h3 svg{width:22px;height:22px;color:#ffd873}
+  .final p{color:#c6d5ec;font-size:.96rem;line-height:1.6}
+  .final .url-ex{margin-top:12px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.15);border-radius:9px;padding:11px 13px;font-family:var(--mono);font-size:.82rem;color:#9fe0ff;word-break:break-all}
+
+  footer{text-align:center;color:var(--faint);font-size:.82rem;margin-top:24px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></span>
+    <span><b>배관119케어</b><small>홈페이지 설정 안내</small></span>
+  </div>
+  <span class="eyebrow">상담신청 접수 연동</span>
+  <h1>구글시트 연동<br>설정 안내</h1>
+  <p class="lead">홈페이지에서 고객이 <b>상담신청</b>을 하면, 그 내용이 <b>사장님 구글시트에 자동 저장 + 이메일로 알림</b>이 오도록 설정하는 방법입니다. 아래 순서대로 따라 하시면 됩니다.</p>
+  <div class="meta">
+    <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>약 5분 소요</span>
+    <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>무료 · 프로그램 설치 없음</span>
+    <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>구글 계정만 필요</span>
+  </div>
+
+  <div class="callout warn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+    <div><b>가장 중요:</b> 마지막 7단계에서 나오는 <b>웹 앱 URL</b>을 꼭 <b>담당자에게 보내주세요.</b> 그래야 홈페이지와 연결됩니다.</div>
+  </div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-h"><span class="num"></span><h3>구글시트 새로 만들기</h3></div>
+      <p>인터넷 주소창에 <span class="kbd">sheets.new</span> 를 입력해 빈 구글시트를 엽니다. (구글 로그인 필요) 시트 이름은 <b>배관119케어 상담신청</b> 등 편하게 정하세요.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-h"><span class="num"></span><h3>Apps Script 열기</h3></div>
+      <p>상단 메뉴에서 <span class="kbd">확장 프로그램</span> → <span class="kbd">Apps Script</span> 를 클릭합니다. 새 탭에 코드 입력 화면이 열립니다.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-h"><span class="num"></span><h3>코드 붙여넣기</h3></div>
+      <p>기존에 있던 내용은 <b>모두 지우고</b>, 아래 코드를 <b>복사</b>해서 붙여넣습니다. 그리고 <b>맨 윗줄 이메일</b>을 사장님이 알림 받을 주소로 바꿔주세요.</p>
+      <div class="codewrap">
+        <div class="codebar"><span>Apps Script 코드</span><button class="copybtn" id="copyBtn">코드 복사</button></div>
+<pre id="code"><span class="cmt">// ===== 배관119케어 상담신청 접수 =====</span>
+<span class="kw">const</span> NOTIFY_EMAIL = <span class="str">"여기에_알림받을_이메일@gmail.com"</span>; <span class="cmt">// ← 이 주소만 바꾸세요</span>
+
+<span class="kw">function</span> doPost(e){
+  <span class="kw">try</span>{
+    <span class="kw">var</span> p = (e && e.parameter) ? e.parameter : {};
+    <span class="kw">var</span> ts = <span class="kw">new</span> Date();
+    <span class="kw">var</span> sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+    <span class="kw">if</span> (sheet.getLastRow() === 0){
+      sheet.appendRow([<span class="str">"접수시각"</span>,<span class="str">"성함"</span>,<span class="str">"연락처"</span>,<span class="str">"지역"</span>,<span class="str">"작업종류"</span>,<span class="str">"증상/희망시간"</span>]);
+    }
+    sheet.appendRow([ts, p.name||<span class="str">""</span>, p.phone||<span class="str">""</span>, p.area||<span class="str">""</span>, p.type||<span class="str">""</span>, p.memo||<span class="str">""</span>]);
+    MailApp.sendEmail(
+      NOTIFY_EMAIL,
+      <span class="str">"[배관119케어] 새 상담신청 · "</span> + (p.name||<span class="str">""</span>) + <span class="str">" "</span> + (p.phone||<span class="str">""</span>),
+      <span class="str">"■ 성함: "</span>+(p.name||<span class="str">""</span>)+<span class="str">"\n■ 연락처: "</span>+(p.phone||<span class="str">""</span>)+<span class="str">"\n■ 지역: "</span>+(p.area||<span class="str">""</span>)+
+      <span class="str">"\n■ 작업종류: "</span>+(p.type||<span class="str">""</span>)+<span class="str">"\n■ 증상/희망시간: "</span>+(p.memo||<span class="str">""</span>)+<span class="str">"\n■ 접수시각: "</span>+ts
+    );
+    <span class="kw">return</span> ContentService.createTextOutput(JSON.stringify({ok:<span class="kw">true</span>})).setMimeType(ContentService.MimeType.JSON);
+  }<span class="kw">catch</span>(err){
+    <span class="kw">return</span> ContentService.createTextOutput(JSON.stringify({ok:<span class="kw">false</span>,error:String(err)})).setMimeType(ContentService.MimeType.JSON);
+  }
+}</pre>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-h"><span class="num"></span><h3>저장하기</h3></div>
+      <p>상단의 <b>저장 아이콘(💾)</b> 을 누르거나 <span class="kbd">Ctrl+S</span> 로 저장합니다.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-h"><span class="num"></span><h3>배포하기</h3></div>
+      <p>우측 상단 <span class="kbd">배포</span> → <span class="kbd">새 배포</span> 를 누르고, 아래처럼 설정합니다.</p>
+      <div class="deploy-box">
+        <ul>
+          <li>유형(톱니바퀴 ⚙️) → <b>웹 앱</b> 선택</li>
+          <li>실행 계정 → <b>나</b></li>
+          <li>액세스 권한 → <b class="hl">모든 사용자</b> <span style="color:var(--faint)">(꼭 "모든 사용자"! "나만" 이면 작동 안 함)</span></li>
+          <li><b>배포</b> 버튼 클릭</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-h"><span class="num"></span><h3>권한 승인</h3></div>
+      <p>처음이면 권한 요청 창이 뜹니다. <b>본인 구글 계정 선택</b> → "이 앱은 확인되지 않았습니다" 경고가 나오면 <span class="kbd">고급</span> → <span class="kbd">(안전하지 않은 페이지)로 이동</span> → <span class="kbd">허용</span> 을 눌러주세요. <span style="color:var(--faint)">(본인이 만든 스크립트라 안전합니다)</span></p>
+    </div>
+
+    <div class="step">
+      <div class="step-h"><span class="num"></span><h3>URL 복사해서 전달</h3></div>
+      <p>배포가 끝나면 <b>웹 앱 URL</b> 이 나옵니다. 그 주소를 <b>복사해서 담당자에게 보내주세요.</b> 이것으로 끝입니다!</p>
+    </div>
+
+  </div>
+
+  <div class="final">
+    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>마지막 — 이 주소를 보내주세요</h3>
+    <p>7단계에서 복사한 아래 형태의 주소를 담당자에게 전달하시면, 홈페이지 상담폼과 연결해 드립니다.</p>
+    <div class="url-ex">https://script.google.com/macros/s/AKfy……/exec</div>
+  </div>
+
+  <div class="callout tip" style="margin-top:22px">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"/></svg>
+    <div><b>잘 안 되시면</b> 화면을 캡처해서 담당자에게 보내주세요. 대신 설정해 드릴 수도 있습니다.</div>
+  </div>
+
+  <footer>배관119케어 홈페이지 · 상담신청 연동 안내</footer>
+</div>
+
+<script>
+(function(){
+  var btn=document.getElementById('copyBtn');
+  var code=document.getElementById('code');
+  btn.addEventListener('click',function(){
+    var text=code.innerText;
+    function done(){ btn.textContent="복사됨 ✓"; btn.classList.add('done'); setTimeout(function(){btn.textContent="코드 복사";btn.classList.remove('done');},1800); }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done,function(){ fallback(text); done(); });
+    } else { fallback(text); done(); }
+  });
+  function fallback(text){
+    var ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta);
+  }
+})();
+</script>
+</body>
+</html>
