@@ -77,15 +77,10 @@
   </div>
   <span class="eyebrow">홈페이지 제작 · 정보 입력</span>
   <h1>홈페이지에 넣을 정보를<br>입력해 주세요</h1>
-  <p class="lead">아는 항목만 채워 제출하셔도 됩니다. 나머지는 나중에 추가 가능합니다. <b>사진·로고·후기</b>는 제출 후 카톡/이메일로 보내주세요.</p>
+  <p class="lead">아는 항목만 채워 제출하셔도 됩니다. 나머지는 나중에 추가 가능합니다. <b>시공 사진·후기</b>는 제출 후 카카오톡으로 보내주세요.</p>
 
-  <form action="https://formsubmit.co/sparkysh@naver.com" method="POST">
-    <!-- Formsubmit 설정 -->
-    <input type="hidden" name="_subject" value="[배관119케어] 홈페이지 정보 제출">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="https://yuns52775-ops.github.io/baegwan119-intake/thankyou.html">
-    <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off">
+  <form id="intakeForm" method="POST">
+    <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true">
 
     <fieldset>
       <legend><span class="dot"></span>기본 정보</legend>
@@ -154,6 +149,24 @@
   });
   list.addEventListener('click',function(e){
     if(e.target.classList.contains('rm')){ e.target.closest('.price-row').remove(); }
+  });
+})();
+
+// ===== 제출 → 구글 앱스스크립트(이메일+시트) =====
+(function(){
+  var form=document.getElementById('intakeForm');
+  var ENDPOINT="https://script.google.com/macros/s/AKfycbyI9mvWfkoSlXuc3TugUN7fA73Z6pIot5bhKEiQ1fxVsXPy-AO6cfMOQ5GllS6fKsKulw/exec";
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var honey=form.querySelector('[name="_honey"]');
+    if(honey && honey.value){ return; } // 스팸봇 차단
+    var btn=form.querySelector('button.go');
+    btn.disabled=true; btn.textContent="제출 중...";
+    var params=new URLSearchParams();
+    new FormData(form).forEach(function(v,k){ if(k!=="_honey" && String(v).trim()!=="") params.append(k,v); });
+    fetch(ENDPOINT,{method:"POST",mode:"no-cors",body:params})
+      .then(function(){ window.location.href="thankyou.html"; })
+      .catch(function(){ window.location.href="thankyou.html"; });
   });
 })();
 </script>
