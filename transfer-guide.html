@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>배관119케어 · 사이트 소유권 이전 안내</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --navy:#0b2144;--navy2:#0f2c58;--blue:#1461d1;--gold:#ffc233;
+    --ink:#0e1726;--muted:#54637b;--faint:#8592a6;--line:#e5ebf3;
+    --bg:#eef2f8;--surface:#fff;--ok:#1aa251;--warn:#c9781a;
+    --shadow:0 18px 45px -20px rgba(11,33,68,.28);
+    --sysface:"Pretendard","Pretendard Variable",-apple-system,BlinkMacSystemFont,system-ui,"Malgun Gothic",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--sysface);background:var(--bg);color:var(--ink);line-height:1.65;letter-spacing:-.01em;padding:24px 16px 80px}
+  .wrap{max-width:720px;margin:0 auto}
+
+  .hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:22px;padding:38px 30px;box-shadow:var(--shadow);text-align:center}
+  .hero .badge{display:inline-block;background:rgba(255,194,51,.16);color:var(--gold);font-weight:800;font-size:.82rem;padding:7px 14px;border-radius:100px;letter-spacing:.02em;margin-bottom:16px}
+  .hero h1{font-size:1.62rem;font-weight:900;letter-spacing:-.03em;line-height:1.3}
+  .hero p{color:#c7d5ec;margin-top:12px;font-size:1rem}
+
+  .prep{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px;margin-top:22px;box-shadow:0 4px 14px rgba(11,33,68,.05)}
+  .prep h2{font-size:1.02rem;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:8px;margin-bottom:12px}
+  .prep ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .prep li{display:flex;gap:11px;font-size:.96rem;color:var(--ink)}
+  .prep li .n{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:.78rem;font-weight:800;display:grid;place-items:center}
+  .prep li b{color:var(--navy)}
+  .prep li small{color:var(--muted);display:block;font-size:.86rem}
+
+  .step{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px 26px 24px;margin-top:18px;box-shadow:0 4px 14px rgba(11,33,68,.05);position:relative;overflow:hidden}
+  .step::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--gold)}
+  .step .head{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+  .step .num{flex:0 0 auto;width:46px;height:46px;border-radius:14px;background:var(--navy);color:var(--gold);font-size:1.3rem;font-weight:900;display:grid;place-items:center}
+  .step .head h3{font-size:1.16rem;font-weight:800;color:var(--navy);letter-spacing:-.02em}
+  .step .head .who{font-size:.78rem;font-weight:800;color:#fff;background:var(--blue);padding:4px 10px;border-radius:100px;margin-top:5px;display:inline-block}
+  .step .head .who.owner{background:var(--warn)}
+  .step ol{margin:0 0 0 4px;padding:0;counter-reset:s;list-style:none;display:flex;flex-direction:column;gap:13px}
+  .step ol li{display:flex;gap:12px;font-size:.98rem}
+  .step ol li::before{counter-increment:s;content:counter(s);flex:0 0 auto;width:24px;height:24px;border-radius:50%;background:#e8eefb;color:var(--blue);font-size:.82rem;font-weight:800;display:grid;place-items:center;margin-top:1px}
+  .step ol li b{color:var(--navy)}
+  code{background:#f0f4fb;border:1px solid #dde6f4;border-radius:6px;padding:2px 7px;font-size:.9em;color:var(--blue);font-weight:700;word-break:break-all}
+  .btnword{display:inline-block;background:var(--navy);color:#fff;font-size:.86rem;font-weight:800;padding:4px 11px;border-radius:8px}
+  .tip{margin-top:14px;background:#f2f8f4;border:1px solid #cfe8d8;border-radius:12px;padding:12px 15px;font-size:.9rem;color:#1f6b42;line-height:1.6}
+  .tip b{color:#15532f}
+  .warnbox{margin-top:14px;background:#fdf5ea;border:1px solid #f2dcbb;border-radius:12px;padding:12px 15px;font-size:.9rem;color:#8a5410;line-height:1.6}
+  .warnbox b{color:#6b3f08}
+
+  .done{background:linear-gradient(135deg,#0f6e3a,#1aa251);color:#fff;border-radius:18px;padding:28px 26px;margin-top:22px;text-align:center;box-shadow:var(--shadow)}
+  .done h3{font-size:1.24rem;font-weight:900;margin-bottom:8px}
+  .done p{color:#d7f2e2;font-size:.96rem}
+  .after{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px;margin-top:18px}
+  .after h2{font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:12px}
+  .after p{font-size:.94rem;color:var(--ink);margin-bottom:10px}
+  .after p b{color:var(--navy)}
+
+  .foot{text-align:center;margin-top:30px;color:var(--faint);font-size:.82rem;font-weight:600;letter-spacing:.06em}
+  @media(max-width:540px){
+    body{padding:16px 12px 60px}
+    .hero{padding:30px 22px}.hero h1{font-size:1.34rem}
+    .step{padding:22px 18px}.step .num{width:40px;height:40px;font-size:1.14rem}
+    .step .head h3{font-size:1.05rem}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <span class="badge">SITE OWNERSHIP TRANSFER</span>
+    <h1>배관119케어 홈페이지<br>소유권 이전 안내</h1>
+    <p>이 사이트를 사장님(고객님) 계정으로 완전히 넘기는 과정입니다.<br>아래 4단계를 순서대로 따라와 주세요.</p>
+  </div>
+
+  <div class="prep">
+    <h2>🧰 먼저 준비할 것 (무료)</h2>
+    <ul>
+      <li><span class="n">1</span><div><b>GitHub 계정</b> — <code>github.com</code> 가입<small>사이트 코드가 보관되는 곳</small></div></li>
+      <li><span class="n">2</span><div><b>Vercel 계정</b> — <code>vercel.com</code> 에서 "GitHub로 가입" 권장<small>실제로 사이트가 운영되는 곳(호스팅)</small></div></li>
+    </ul>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <div class="head">
+      <div class="num">1</div>
+      <div><h3>GitHub 저장소 이전 수락</h3><span class="who">고객님이 진행</span></div>
+    </div>
+    <ol>
+      <li><b>GitHub에 로그인</b>합니다. (제작자가 이전 요청을 이미 보냈습니다)</li>
+      <li>가입한 이메일로 온 <b>이전 안내 메일</b>, 또는 GitHub 우측 상단 <b>알림(🔔)</b>에서 "baegwan119care 저장소 이전" 항목을 엽니다.</li>
+      <li>초록색 <span class="btnword">Accept transfer</span> 버튼을 클릭합니다.</li>
+      <li>저장소 <code>baegwan119care</code> 가 고객님 계정으로 들어오면 완료입니다.</li>
+    </ol>
+    <div class="tip"><b>Tip.</b> 메일이 안 보이면 GitHub 로그인 상태에서 알림 아이콘(🔔)을 확인해 보세요.</div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step">
+    <div class="head">
+      <div class="num">2</div>
+      <div><h3>Vercel 가입 · 로그인</h3><span class="who">고객님이 진행</span></div>
+    </div>
+    <ol>
+      <li><code>vercel.com</code> 접속 → <b>Sign Up</b>(가입)</li>
+      <li><b>"Continue with GitHub"</b> 선택 — <b>방금 그 GitHub 계정</b>으로 연결합니다.</li>
+      <li>권한 요청이 나오면 <b>승인(Authorize)</b> 합니다.</li>
+    </ol>
+    <div class="warnbox"><b>중요.</b> 반드시 <b>1단계에서 저장소를 받은 그 GitHub 계정</b>으로 Vercel에 가입해야 사이트를 불러올 수 있습니다.</div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <div class="head">
+      <div class="num">3</div>
+      <div><h3>사이트 불러와서 배포</h3><span class="who">고객님이 진행</span></div>
+    </div>
+    <ol>
+      <li>Vercel 대시보드 우측 상단 <span class="btnword">Add New</span> → <b>Project</b> 클릭</li>
+      <li>목록에서 <code>baegwan119care</code> 저장소를 찾아 <b>Import</b></li>
+      <li>설정은 그대로 두고 <span class="btnword">Deploy</span> 클릭</li>
+      <li>잠시 후 임시 주소(<code>○○○.vercel.app</code>)로 <b>사이트가 뜨면 성공</b>입니다.</li>
+    </ol>
+    <div class="tip"><b>참고.</b> 이 단계까지는 기존 주소(<code>baegwan119care.co.kr</code>)가 계속 정상 작동합니다. 도메인은 다음 단계에서 옮깁니다.</div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step">
+    <div class="head">
+      <div class="num">4</div>
+      <div><h3>도메인 연결 (제작자와 함께)</h3><span class="who owner">제작자 ↔ 고객님</span></div>
+    </div>
+    <ol>
+      <li>도메인은 한 번에 한 곳에만 연결됩니다. 진행 전 <b>제작자에게 "도메인 옮기겠습니다"라고 알려주세요.</b></li>
+      <li><b>(제작자)</b> 기존 Vercel에서 <code>baegwan119care.co.kr</code> 을 <b>제거(Remove)</b></li>
+      <li><b>(고객님)</b> 내 Vercel 프로젝트 → <b>Settings → Domains</b> → <code>baegwan119care.co.kr</code> 입력 → <span class="btnword">Add</span></li>
+      <li>대부분 그대로 <b>"Valid ✅"</b> 로 연결됩니다. (보안접속 https는 자동 발급)</li>
+      <li><code>https://baegwan119care.co.kr</code> 에 접속해서 내 사이트가 뜨는지 확인하면 끝!</li>
+    </ol>
+    <div class="warnbox"><b>안내.</b> 2~4번은 몇 분 안에 이어서 진행하는 게 좋습니다. 그 사이 잠깐 접속이 불안정할 수 있어요.</div>
+  </div>
+
+  <div class="done">
+    <h3>🎉 이전 완료!</h3>
+    <p>이제 사이트의 코드 · 호스팅 · 도메인이 모두 고객님 소유입니다.</p>
+  </div>
+
+  <div class="after">
+    <h2>이후 관리는 이렇게</h2>
+    <p><b>· 사이트 수정</b> — 제작자가 계속 도와드리려면, GitHub 저장소 <b>Settings → Collaborators</b>에서 제작자를 초대해 주세요.</p>
+    <p><b>· 도메인 연장</b> — 가비아에서 자동연장(자동결제)을 켜두면 만료 걱정이 없습니다.</p>
+    <p><b>· 검색 노출</b> — 네이버/구글 검색등록은 제작자와 상의해 진행하세요.</p>
+  </div>
+
+  <div class="foot">배관119케어 · PLUMBING CARE</div>
+
+</div>
+</body>
+</html>
